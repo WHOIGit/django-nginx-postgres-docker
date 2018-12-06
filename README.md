@@ -48,6 +48,8 @@ Prerequisite: You need to have Docker installed on the system where you'll be ru
     3. Run `./manage.py migrate`
     4. Run `./manage.py createsuperuser`
     5. Run `./manage.py collectstatic`
-    6. Run `exit` to leave the container      
+    6. Run `exit` to leave the container     
+5. Django site up! http://localhost:8000 
+6. To stop the application, run `docker-compose down`    
 
 
