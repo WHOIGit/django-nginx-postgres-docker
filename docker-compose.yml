@@ -1,0 +1,45 @@
+version: '3'
+
+services:
+  djangoapp:
+    build: .
+    container_name: djangoapp
+    volumes:
+      - ./djangoapp:/var/djangoapp # <-- bind the application code
+      - ./static_volume:/var/static  # <-- bind the static files
+      - ./media_volume:/var/media  # <-- bind the media files
+    networks:
+      - nginx_network
+      - database1_network
+
+  nginx:
+    image: nginx:1.15
+    container_name: nginx
+    ports:
+      - 8000:80
+    volumes:
+      - ./nginx:/etc/nginx/conf.d
+      - ./logs/nginx:/var/log/nginx
+      - ./static_volume:/var/static  # <-- bind the static files again so Nginx can share volume
+      - ./media_volume:/var/media  # <-- bind the media files again so Nginx can share volume
+    depends_on:  # <-- wait for djangoapp to be "ready" before starting this service
+      - djangoapp
+    networks:
+      - nginx_network  
+    restart: always
+
+  database1:  # <-- IMPORTANT: same name as in Djano settings.py, otherwise Django won't find the database!
+    image: postgres:11
+    container_name: database1
+    env_file:  # <-- match values to Djano settings.py
+      - config/db/database1_env
+    networks:
+      - database1_network  
+    volumes:
+      - ./postgres/data:/var/lib/postgresql/data # <-- bind the database to local directory
+
+networks:
+  nginx_network:
+    driver: bridge
+  database1_network:
+    driver: bridge
