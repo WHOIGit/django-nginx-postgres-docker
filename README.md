@@ -5,7 +5,7 @@ A Docker Compose starter kit with Nginx, Django, Gunicorn, and Postgres database
 The default Nginx configuration file can be found at`nginx/djangoapp.conf`.  It's set to run the site for local development at http://localhost:8000
 
 ## Postgres configuration
-Default Postgres setting can be found in `config/db/database1_env`. We use `database1` everywhere for default values, but you can change these values to whatever suits you:
+Default Postgres setting can be found in `config/db/database1_env`. The Postgres Docker image will automatically create a database with these settings when the container is started. We use `database1` everywhere for default values, but you can change these values to whatever suits you:
 
 POSTGRES_USER=database1_role  
 POSTGRES_PASSWORD=database1_password  
