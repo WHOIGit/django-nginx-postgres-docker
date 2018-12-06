@@ -13,18 +13,40 @@ Prerequisite: You need to have Docker installed on the system where you'll be ru
     3. Run `./manage.py migrate`
     4. Run `./manage.py createsuper user`
     5. Run `./manage.py collectstatic`
-    6. Run `exit' to leave the container`
+    6. Run `exit` to leave the container
 
 ## Nginx configuration
-The default Nginx configuration file can be found at the `nginx/djangoapp.conf`.  It's set to run the site for local development at http://localhost:8000
+The default Nginx configuration file can be found at`nginx/djangoapp.conf`.  It's set to run the site for local development at http://localhost:8000
 
 ## Postgres configuration
 Default Postgres setting can be found in `config/db/database1_env`. We use `database1` everywhere for default values, but you can change these values to whatever suits you:
 
-POSTGRES_USER=database1_role
-POSTGRES_PASSWORD=database1_password
+POSTGRES_USER=database1_role  
+POSTGRES_PASSWORD=database1_password  
 POSTGRES_DB=database1
 
 You must also update the DATABASES code block in the `settings.py` file in the Django application, and match the name in the `docker-compose.yml` file for the Postres container.
+
+    DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'database1',
+        'USER': 'database1_role',
+        'PASSWORD': 'database1_password',
+        'HOST': 'database1',  # <-- IMPORTANT: same name as docker-compose service!
+        'PORT': '5432',
+        }
+    }
+
+
+    database1:  # <-- IMPORTANT: same name as in Djano settings.py, otherwise Django won't find the database!
+    image: postgres:11
+    container_name: database1
+    env_file:  # <-- match values to Djano settings.py
+      - config/db/database1_env
+    networks:
+      - database1_network  
+    volumes:
+      - ./postgres/data:/var/lib/postgresql/data # <-- bind the database to local directory
 
 
