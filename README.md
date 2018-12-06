@@ -25,7 +25,7 @@ POSTGRES_USER=database1_role
 POSTGRES_PASSWORD=database1_password  
 POSTGRES_DB=database1
 
-You must also update the DATABASES code block in the `settings.py` file in the Django application, and match the name in the `docker-compose.yml` file for the Postres container.
+You must also update the DATABASES code block in the `settings.py` file in the Django application
 
     DATABASES = {
     'default': {
@@ -38,6 +38,7 @@ You must also update the DATABASES code block in the `settings.py` file in the D
         }
     }
 
+And match the container name in the `docker-compose.yml` file for the Postres container.
 
     database1:  # <-- IMPORTANT: same name as in Djano settings.py, otherwise Django won't find the database!
     image: postgres:11
