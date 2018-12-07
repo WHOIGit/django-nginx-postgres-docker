@@ -26,7 +26,6 @@ services:
       - djangoapp
     networks:
       - nginx_network  
-    restart: always
 
   database1:  # <-- IMPORTANT: same name as in Djano settings.py, otherwise Django won't find the database!
     image: postgres:11
