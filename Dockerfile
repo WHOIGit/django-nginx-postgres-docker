@@ -8,8 +8,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends postgresql-clie
 RUN mkdir -p /var/djangoapp
 WORKDIR /var/djangoapp
 
-
-# install our two dependencies
+# install our dependencies
 COPY djangoapp/requirements.txt /var/djangoapp
 RUN pip install -r requirements.txt
 
