@@ -15,6 +15,7 @@ RUN pip install -r requirements.txt
 
 # copy our project code
 COPY djangoapp/starterkit /var/djangoapp/starterkit
+
 # run Django management commands at start
 RUN cd starterkit && python manage.py collectstatic --no-input
 
