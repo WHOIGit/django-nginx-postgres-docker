@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-django==2.2.9
-=======
-django==2.2.8
->>>>>>> c1f70bcfcb45696de8b0e47369e7113d6d87047b
+django==2.2.10
 gunicorn==19.9.0
 psycopg2==2.7.6.1
 pytz==2018.7
